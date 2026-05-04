@@ -20,10 +20,11 @@ FROM eclipse-temurin:21-jre-alpine AS runner
 WORKDIR /app
 
 # 从构建阶段复制打包好的 jar
-COPY --from=builder /app/target/patient-service-0.0.1-SNAPSHOT.jar ./app.jar
+COPY --from=builder /app/target/billing-service-0.0.1-SNAPSHOT.jar ./app.jar
 
 # 声明端口（文档作用）
-EXPOSE 4000
+EXPOSE 4001
+EXPOSE 9001
 
 # 启动命令
 ENTRYPOINT ["java", "-jar", "app.jar"]
