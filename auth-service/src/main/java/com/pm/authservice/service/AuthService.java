@@ -2,8 +2,15 @@ package com.pm.authservice.service;
 
 import com.pm.authservice.dto.LoginRequestDTO;
 import com.pm.authservice.util.JwtUtil;
+import io.jsonwebtoken.JwtException;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.persistence.Table;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.Optional;
 
@@ -30,5 +37,15 @@ public class AuthService {
                 .filter(u -> passwordEncoder.matches(loginRequestDTO.getPassword(),
                         u.getPassword()))
                 .map(u -> jwtUtil.generateToken(u.getEmail(), u.getRole()));
+    }
+
+
+    public boolean validateToken(String token) {
+        try {
+           jwtUtil.validateToken(token);
+            return true;
+        } catch (JwtException e) {
+            return false;
+        }
     }
 }
