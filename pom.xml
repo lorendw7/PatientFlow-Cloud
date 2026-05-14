@@ -26,6 +26,7 @@
         <module>api-gateway</module>
         <module>auth-service</module>
         <module>integration-tests</module>
+        <module>infrastructure</module>
     </modules>
 
     <properties>
